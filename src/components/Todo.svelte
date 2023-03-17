@@ -2,10 +2,12 @@
   import { createEventDispatcher, tick } from "svelte";
   import { selectOnFocus } from "../action";
   import type { TodoType } from "../types/todo.type";
+  import Button from "./Button.svelte";
   export let todo: TodoType;
   let editing = false;
   let name = todo.name;
   let nameEl: HTMLElement;
+  let renameFormEl: HTMLFormElement;
   let editButtonPressed = false;
 
   function update(updatedTodo: Partial<TodoType>) {
@@ -18,6 +20,7 @@
   }
 
   function onSave() {
+    console.log("call onSave.");
     update({ name });
     editing = false;
   }
@@ -28,7 +31,7 @@
 
   const focusOnInit = (node) =>
     node && typeof node.focus === "function" && node.focus();
-  const focusEditButton = (node) => editButtonPressed && node.focus();
+
   async function onEdit() {
     editButtonPressed = true;
     editing = true;
@@ -46,6 +49,7 @@
 <div class="stack-small">
   {#if editing}
     <form
+      bind:this={renameFormEl}
       on:submit|preventDefault={onSave}
       class="stack-small"
       on:keydown={(e) => e.key === "Escape" && onCancel()}
@@ -66,16 +70,19 @@
         />
       </div>
       <div class="btn-group">
-        <button class="btn todo-cancel" on:click={onCancel} type="button">
-          Cancel<span class="visually-hidden">renaming {todo.name}</span>
-        </button>
-        <button
-          class="btn btn__primary todo-edit"
-          type="submit"
-          disabled={!name}
+        <Button on:click={onCancel}
+          >Cancel<span class="visually-hidden">renaming {todo.name}</span
+          ></Button
         >
-          Save<span class="visually-hidden">new name for {todo.name}</span>
-        </button>
+        <Button
+          type="tertiary"
+          on:click={() => {
+            renameFormEl.dispatchEvent(new Event("submit"));
+          }}
+          disabled={!name}
+          >Save<span class="visually-hidden">new name for {todo.name}</span
+          ></Button
+        >
       </div>
     </form>
   {:else}
@@ -89,12 +96,12 @@
       <label for="todo-{todo.id}" class="todo-label">{todo.name}</label>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn" on:click={onEdit} use:focusEditButton>
-        Edit<span class="visually-hidden"> {todo.name}</span>
-      </button>
-      <button type="button" class="btn btn__danger" on:click={onRemove}>
-        Delete<span class="visually-hidden"> {todo.name}</span>
-      </button>
+      <Button focused={editButtonPressed} on:click={onEdit}
+        >Edit<span class="visually-hidden"> {todo.name}</span></Button
+      >
+      <Button type="primary" on:click={onRemove}
+        >Delete<span class="visually-hidden"> {todo.name}</span></Button
+      >
     </div>
   {/if}
 </div>

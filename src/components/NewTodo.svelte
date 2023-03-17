@@ -1,12 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
   import { selectOnFocus } from "../action";
+  import Button from "./Button.svelte";
   const dispatch = createEventDispatcher();
-
   export let autofocus: boolean = true;
 
   let name = "";
   let nameEl: HTMLElement;
+  let newTodoFormEl: HTMLFormElement;
 
   const addTodo = () => {
     dispatch("addTodo", name);
@@ -22,6 +23,7 @@
 </script>
 
 <form
+  bind:this={newTodoFormEl}
   on:submit|preventDefault={addTodo}
   on:keydown={(e) => e.key === "Escape" && onCancel()}
 >
@@ -37,7 +39,12 @@
     autoComplete="off"
     class="input input__lg"
   />
-  <button type="submit" disabled={!name} class="btn btn__primary btn__lg"
-    >Add</button
+  <Button
+    type={!name ? "disabled" : "tertiary"}
+    lg
+    disabled={!name}
+    on:click={() => {
+      newTodoFormEl.dispatchEvent(new Event("submit"));
+    }}>Add</Button
   >
 </form>

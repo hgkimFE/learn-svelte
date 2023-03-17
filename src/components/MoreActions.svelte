@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import type { TodoType } from "../types/todo.type";
+  import Button from "./Button.svelte";
   const dispatch = createEventDispatcher();
 
   export let todos: TodoType[];
@@ -18,16 +19,12 @@
 </script>
 
 <div class="btn-group">
-  <button
-    type="button"
-    class="btn btn__primary"
-    disabled={todos.length === 0}
-    on:click={checkAll}>{completed ? "Check" : "Uncheck"} all</button
+  <Button disabled={todos.length === 0} on:click={checkAll}
+    >{completed ? "Check" : "Uncheck"} all</Button
   >
-  <button
-    type="button"
-    class="btn btn__primary"
+  <Button
+    type="primary"
     disabled={completedTodos === 0}
-    on:click={removeCompleted}>Remove completed</button
+    on:click={removeCompleted}>Remove completed</Button
   >
 </div>

@@ -5,7 +5,7 @@
   --back-api: #e5eef5;
   --prime: #ff3e00;
   --second: #676778;
-  --flash: #40b3ff;
+  --tertiary: #40b3ff;
   --highlight: #ffff82;
   --heading: #222;
   --text: #444;
@@ -19,10 +19,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-}
-*:focus {
-  outline: 3px dashed #228bec;
-  outline-offset: 0;
 }
 html {
   font: 62.5% / 1.15 sans-serif;
