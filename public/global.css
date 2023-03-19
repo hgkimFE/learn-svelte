@@ -1,37 +1,54 @@
+/* colors */
+:root {
+  --back: #ffffff;
+  --back-light: #f6fafd;
+  --prime: #ff3e00;
+  --second: #676778;
+  --tertiary: #40b3ff;
+  --disabled: #7b7766;
+  --highlight: #ffff82;
+  --heading: #222;
+  --text: #444;
+  --disabled-text: #d3d3d3;
+  --sidebar-text: rgba(255, 255, 255, 0.9);
+}
+[class*="--primary"] {
+  color: var(--sidebar-text);
+  background-color: var(--prime);
+}
+[class*="--secondary"] {
+  color: var(--sidebar-text);
+  background-color: var(--second);
+}
+[class*="--tertiary"] {
+  color: var(--sidebar-text);
+  background-color: var(--tertiary);
+}
+[class*="--disabled"] {
+  color: var(--disabled-text);
+  background-color: var(--disabled);
+}
+/* E.O. colors */
+
+/* sizes */
+[class*="__lg"] {
+  width: 100%;
+  display: inline-block;
+  font-size: 2.4rem;
+}
+[class*="__lg"]:not(:last-child) {
+  margin-bottom: 1rem;
+}
+/* E.O. sizes */
+
 /* GLOBAL STYLES */
+body {
+  background-color: var(--back);
+  color: var(--text);
+}
 .form-group > input[type="text"] {
   display: inline-block;
   margin-top: 0.4rem;
-}
-.btn {
-  padding: 0.8rem 1rem 0.7rem;
-  border: 0.2rem solid #4d4d4d;
-  cursor: pointer;
-  text-transform: capitalize;
-}
-.btn.toggle-btn {
-  border-width: 1px;
-  border-color: #d3d3d3;
-}
-.btn.toggle-btn[aria-pressed="true"] {
-  text-decoration: underline;
-  border-color: #4d4d4d;
-}
-.btn__danger {
-  color: #fff;
-  background-color: #ca3c3c;
-  border-color: #bd2130;
-}
-.btn__filter {
-  border-color: lightgrey;
-}
-.btn__primary {
-  color: #fff;
-  background-color: #000;
-}
-.btn__primary:disabled {
-  color: darkgrey;
-  background-color: #565656;
 }
 .btn-group {
   display: flex;
@@ -160,7 +177,7 @@
 /* CHECKBOX STYLES */
 .c-cb {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
   font-size: 1.6rem;

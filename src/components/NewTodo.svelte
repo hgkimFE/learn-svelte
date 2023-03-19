@@ -2,8 +2,8 @@
   import { createEventDispatcher, onMount } from "svelte";
   import { selectOnFocus } from "../action";
   import Button from "./Button.svelte";
+  import TextInput from "./TextInput.svelte";
   const dispatch = createEventDispatcher();
-  export let autofocus: boolean = true;
 
   let name = "";
   let nameEl: HTMLElement;
@@ -15,34 +15,23 @@
     nameEl.focus();
   };
 
-  const onCancel = () => {
-    name = "";
-    nameEl.focus();
-  };
-  onMount(() => autofocus && nameEl.focus());
+  function changeName(e) {
+    name = e.detail;
+  }
 </script>
 
-<form
-  bind:this={newTodoFormEl}
-  on:submit|preventDefault={addTodo}
-  on:keydown={(e) => e.key === "Escape" && onCancel()}
->
+<form bind:this={newTodoFormEl} on:submit|preventDefault={addTodo}>
   <h2 class="label-wrapper">
-    <label for="todo-0" class="label__lg">What needs to be done?</label>
+    <!-- <label for="todo-0" class="label__lg">
+    </label> -->
+    What needs to be done?
   </h2>
-  <input
-    bind:value={name}
-    bind:this={nameEl}
-    use:selectOnFocus
-    type="text"
-    id="todo-0"
-    autoComplete="off"
-    class="input input__lg"
-  />
+  <TextInput value={name} on:change={changeName} on:save={addTodo} />
   <Button
     type={!name ? "disabled" : "tertiary"}
     lg
     disabled={!name}
+    attr={{ style: "transition: background-color 0.2s" }}
     on:click={() => {
       newTodoFormEl.dispatchEvent(new Event("submit"));
     }}>Add</Button

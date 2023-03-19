@@ -1,19 +1,4 @@
-/* colors */
-:root {
-  --back: #ffffff;
-  --back-light: #f6fafd;
-  --back-api: #e5eef5;
-  --prime: #ff3e00;
-  --second: #676778;
-  --tertiary: #40b3ff;
-  --highlight: #ffff82;
-  --heading: #222;
-  --text: #444;
-  --second-text: #7b7766;
-  --sidebar-text: rgba(255, 255, 255, 0.9);
-}
-/* E.O. colors */
-
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 /* RESETS */
 *,
 *::before,
@@ -21,7 +6,7 @@
   box-sizing: border-box;
 }
 html {
-  font: 62.5% / 1.15 sans-serif;
+  font: 62.5% / 1.15 "Roboto", sans-serif;
 }
 h1,
 h2 {
@@ -57,6 +42,7 @@ textarea {
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
+  outline: none;
 }
 button,
 input {
@@ -69,9 +55,7 @@ body {
   width: 100%;
   max-width: 68rem;
   margin: 0 auto;
-  font: 1.6rem/1.25 Arial, sans-serif;
-  background-color: var(--back);
-  color: var(--text);
+  font: 1.6rem/1.25 "Roboto", sans-serif;
 }
 @media screen and (min-width: 620px) {
   body {
@@ -79,4 +63,4 @@ body {
     line-height: 1.31579;
   }
 }
-/*END RESETS*/
+/* E.O. RESETS */

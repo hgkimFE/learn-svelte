@@ -6,6 +6,8 @@
   export let focused = false;
   export let lg = false;
   export let ariaPressed: undefined | boolean = undefined;
+  export let attr: undefined | object = undefined;
+
   $: isFocused = focused;
   $: cssBtnType = `${
     disabled ? "btn--disabled" : type.length ? "btn--" + type : ""
@@ -18,6 +20,7 @@
   class="btn {cssBtnType}"
   {disabled}
   aria-pressed={ariaPressed}
+  {...attr}
   on:click={onClick}
   use:focusButton><slot /></button
 >
@@ -30,40 +33,21 @@
     cursor: pointer;
     text-transform: capitalize;
     box-shadow: 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s;
   }
   .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0.3rem 0.4rem rgba(0, 0, 0, 0.1);
   }
   .btn:focus {
     outline: none;
-    box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.4);
+    box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.7);
   }
-  [class*="--primary"] {
-    color: var(--sidebar-text);
-    background-color: var(--prime);
-  }
-  [class*="--secondary"] {
-    color: var(--sidebar-text);
-    background-color: var(--second);
-  }
-  [class*="--tertiary"] {
-    color: var(--sidebar-text);
-    background-color: var(--tertiary);
-  }
-  [class*="--disabled"] {
-    color: var(--sidebar-text);
-    background-color: var(--second-text);
+  .btn[aria-pressed="true"] {
+    text-decoration: underline;
   }
   [class*="--disabled"]:hover {
     transform: none;
     box-shadow: 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
     cursor: not-allowed;
-  }
-  [class*="__lg"] {
-    width: 100%;
-    display: inline-block;
-    font-size: 2.4rem;
   }
 </style>

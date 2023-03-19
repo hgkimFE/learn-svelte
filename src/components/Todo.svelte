@@ -20,7 +20,6 @@
   }
 
   function onSave() {
-    console.log("call onSave.");
     update({ name });
     editing = false;
   }
@@ -42,7 +41,12 @@
   function onToggle() {
     update({ completed: !todo.completed });
   }
-
+  function preventEnter(e) {
+    if (e.key == "Enter") {
+      e.preventDefault();
+      onSave();
+    }
+  }
   const dispatch = createEventDispatcher();
 </script>
 
@@ -63,6 +67,8 @@
           bind:this={nameEl}
           use:selectOnFocus
           use:focusOnInit
+          on:keydown={preventEnter}
+          placeholder="test"
           type="text"
           id="todo-{todo.id}"
           autoComplete="off"
