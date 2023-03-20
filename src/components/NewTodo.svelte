@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
-  import { selectOnFocus } from "../action";
+  import { createEventDispatcher } from "svelte";
   import Button from "./Button.svelte";
   import TextInput from "./TextInput.svelte";
   const dispatch = createEventDispatcher();
 
   let name = "";
-  let nameEl: HTMLElement;
   let newTodoFormEl: HTMLFormElement;
-
+  let nameEl: HTMLElement;
   const addTodo = () => {
     dispatch("addTodo", name);
     name = "";
@@ -26,7 +24,12 @@
     </label> -->
     What needs to be done?
   </h2>
-  <TextInput value={name} on:change={changeName} on:save={addTodo} />
+  <TextInput
+    value={name}
+    on:change={changeName}
+    on:save={addTodo}
+    bind:nameEl
+  />
   <Button
     type={!name ? "disabled" : "tertiary"}
     lg

@@ -6,20 +6,18 @@
   export let value: string;
   $: dispatch("change", value);
   let autofocus: boolean = true;
-  let nameEl: HTMLElement;
+  export let nameEl: HTMLElement;
+
   const onCancel = () => {
     value = "";
     nameEl.focus();
   };
   function onKeyDown(e: KeyboardEvent) {
     if (e.key === "Escape") onCancel();
-    else if (e.key == "Enter") {
-      console.log("enter");
-      e.preventDefault();
-      dispatch("save");
-    }
   }
-  onMount(() => autofocus && nameEl.focus());
+  onMount(() => {
+    autofocus && nameEl.focus();
+  });
 </script>
 
 <div class="input-container __lg">

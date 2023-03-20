@@ -3,6 +3,7 @@
   import { selectOnFocus } from "../action";
   import type { TodoType } from "../types/todo.type";
   import Button from "./Button.svelte";
+  import CheckBox from "./CheckBox.svelte";
   export let todo: TodoType;
   let editing = false;
   let name = todo.name;
@@ -39,6 +40,7 @@
   }
 
   function onToggle() {
+    console.log("ontoggle");
     update({ completed: !todo.completed });
   }
   function preventEnter(e) {
@@ -92,15 +94,22 @@
       </div>
     </form>
   {:else}
-    <div class="c-cb">
-      <input
+    <!-- <div class="c-cb"> -->
+    <CheckBox
+      id={`todo-${todo.id}`}
+      checked={todo.completed}
+      on:toggle={onToggle}
+    >
+      <label for="todo-{todo.id}" class="todo-label">{todo.name}</label>
+    </CheckBox>
+    <!-- <input
         type="checkbox"
         id="todo-{todo.id}"
         on:click={onToggle}
         checked={todo.completed}
       />
-      <label for="todo-{todo.id}" class="todo-label">{todo.name}</label>
-    </div>
+      <label for="todo-{todo.id}" class="todo-label">{todo.name}</label> -->
+    <!-- </div> -->
     <div class="btn-group">
       <Button focused={editButtonPressed} on:click={onEdit}
         >Edit<span class="visually-hidden"> {todo.name}</span></Button
@@ -111,3 +120,16 @@
     </div>
   {/if}
 </div>
+
+<style>
+  label {
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 8px 15px 5px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+</style>
